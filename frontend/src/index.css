@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Fraunces:wght@600;700&display=swap');
+
+@import "tailwindcss";
+
+:root {
+  color-scheme: light;
+  --cream: #f6f2ea;
+  --ink: #1a1a1a;
+  --moss: #0f7f5c;
+  --moss-dark: #0c5f45;
+  --cloud: #ffffff;
+  --stone: #e7e0d5;
+  --sun: #f5c04a;
+}
+
+body {
+  margin: 0;
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  background: radial-gradient(circle at top left, #ffffff 0%, var(--cream) 55%, #efe6d8 100%);
+  color: var(--ink);
+  min-height: 100svh;
+}
+
+#root {
+  min-height: 100svh;
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(231, 224, 213, 0.6);
+  box-shadow: 0 30px 60px rgba(26, 26, 26, 0.08);
+  backdrop-filter: blur(18px);
+}
+
+.brand-title {
+  font-family: "Fraunces", serif;
+}
+
+.chat-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(15, 127, 92, 0.45) transparent;
+}
+
+.chat-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.chat-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(15, 127, 92, 0.45);
+  border-radius: 999px;
+}
+
+@keyframes floatIn {
+  0% {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: floatIn 0.35s ease-out;
+}

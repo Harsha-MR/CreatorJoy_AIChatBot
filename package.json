@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "backend": "cd backend && uvicorn main:app --reload",
+    "frontend": "cd frontend && npm run dev",
+    "start": "concurrently \"npm:backend\" \"npm:frontend\""
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.3.0",
+    "axios": "^1.16.1",
+    "tailwindcss": "^4.3.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

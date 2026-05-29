@@ -1,0 +1,21 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+.venv/
+venv/
+
+# Environment variables
+.env
+
+
+# Logs
+*.log
+
+# SQLite
+*.sqlite3
+
+# Cache
+.pytest_cache/
+.mypy_cache/
