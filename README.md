@@ -4,7 +4,7 @@ AI chat sales assistant that qualifies CreatorJoy leads, scores them, and routes
 ## Tech Stack
 - React + Vite (frontend)
 - FastAPI (backend)
-- Google Gemini 1.5 Flash (AI)
+- Google Gemini 2.5 Flash (AI)
 - SQLite (leads storage)
 - Tailwind CSS (styling)
 
