@@ -5,8 +5,9 @@ from typing import List
 from pathlib import Path
 
 from dotenv import load_dotenv
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
+from google.genai import errors as genai_errors
 
 from chat import get_ai_reply
 from database import Lead, SessionLocal, create_tables
@@ -37,8 +38,21 @@ def chat(request: ChatRequest) -> ChatResponse:
         {"role": "user" if msg.role == "user" else "model", "parts": [msg.text]}
         for msg in request.conversation_history
     ]
-    reply = get_ai_reply(request.message, history)
-    return ChatResponse(reply=reply)
+    try:
+        reply = get_ai_reply(request.message, history)
+        return ChatResponse(reply=reply)
+    except genai_errors.ClientError as exc:
+        status_code = getattr(exc, "status_code", None)
+        message = str(exc)
+        if status_code == 429 or "RESOURCE_EXHAUSTED" in message or "rate limit" in message:
+            raise HTTPException(
+                status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+                detail="Gemini rate limit reached. Please wait a minute and try again.",
+            ) from exc
+        raise HTTPException(
+            status_code=status.HTTP_502_BAD_GATEWAY,
+            detail="Gemini service error. Please try again shortly.",
+        ) from exc
 
 
 @app.post("/leads", response_model=LeadResponse)

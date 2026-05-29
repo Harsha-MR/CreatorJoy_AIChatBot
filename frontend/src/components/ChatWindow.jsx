@@ -75,6 +75,20 @@ function ChatWindow() {
         setLeadFormVisible(true)
       }
     } catch (error) {
+      const status = error?.response?.status
+      const detail = error?.response?.data?.detail
+      if (status === 429) {
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "assistant",
+            text:
+              detail ||
+              "We're at the Gemini rate limit. Please wait a minute and try again.",
+          },
+        ])
+        return
+      }
       setMessages((prev) => [
         ...prev,
         {
